@@ -1,0 +1,200 @@
+/*  #########################################################  */
+/*  ###################  responsive  #########################  */
+/*  #########################################################  */
+
+
+
+@media screen and (max-width: 1200px) {
+
+  #header .inner {
+    height: 15em;
+  }
+
+}
+
+
+/* If the viewport width <= 1000 pixels ... */
+
+@media screen and (max-width: 1000px) {
+
+  #header .inner {
+    height: 12em;
+  }
+
+  /* Make the main content a bit wider */
+  #content {
+    width: 75%;
+  }
+
+  /* Put the nav on top of the sidebar */
+
+  #nav, #sidebar {
+    width: 25%;
+  }
+
+  /* Adjust the sidebar margins */
+
+  #sidebar .inner {
+    margin-right: 2px;
+    margin-top: 20px;
+  }
+
+}
+
+
+/* If the viewport width <= 700 pixels ... */
+
+@media screen and (max-width: 700px) {
+  #header h2 {
+    font-size:2.6em;
+    line-height: 2.6em;
+  }
+
+  #header .inner {
+    height: 10em;
+    background: #D9E1FF url(../img/header-background-sml.jpg);
+  }
+
+  .headleft {
+    margin-left: 13%;
+    margin-top: 18px;
+  }
+
+  .headright {
+    margin-right: 13%;
+    margin-top: 18px;
+  }
+
+  /* Make the main content fill the viewport width */
+
+  #content {
+    width: 100%;
+  }
+
+  /* Remove the main content right margin */
+
+  #content .inner {
+    margin-right: 2px; 
+  }
+
+  /* Put the nav above the main content */
+
+  #nav {
+    float: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Place the nav items side by side */
+
+  #nav li {
+    float: left;
+    min-width: 24%;
+    border-bottom: none;
+    border-right: 1px solid rgba(255,255,255,.5);
+    margin: 0px 0px 0px 2px;
+    padding-right: 2px;
+  }
+
+  #nav li:last-child {
+    width: 27%;
+    border-right: none;
+  }
+
+  #nav a {
+    text-align: center;
+    padding-left: 0;
+  }
+
+  /* Place the sidebar below the main content */
+
+  #sidebar {
+    float: none;
+    clear: both;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  #header .inner {
+    height: 8em;
+    background: #D9E1FF url(../img/header-background-sml.jpg);
+  }
+}
+
+/* iPad with landscape <= 1024px pixels ... */
+/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation : landscape) {
+
+}*/
+
+/* iPad with portrait <= 768px pixels ... */
+/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation : portrait) {
+
+}*/
+
+/* iPhone with Retina Display <= 480 pixels ... */
+/*
+@media only screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+
+}*/
+
+/* If the viewport width <= 480 pixels ... */
+
+@media screen and (max-width: 480px) {
+
+  body {
+    margin: 0;
+  }
+
+  #header h2 {
+    font-size:2em;
+    line-height: 2em;
+  }
+
+  #header .inner {
+    height: 6em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: #D9E1FF url(../img/header-background-sml.jpg);
+  }
+
+  .headleft {
+    margin-left: 9%;
+    margin-top: 16px;
+  }
+
+  .headright {
+    margin-right: 9%;
+    margin-top: 16px;
+  }
+  
+  #header .inner, #content, #nav, #sidebar {
+    margin-bottom: 12px;
+  }
+
+  #nav ul {
+    padding: 5px 7px;
+  }
+
+  .photo {
+    border: none;
+  }
+
+}
+
+@media screen and (max-width: 320px) {
+  html, body {
+    font-size: 13px;
+  }
+
+  #header h2 {
+    font-size:1.6em;
+    line-height: 1.6em;
+  }
+
+  #header .inner {
+    height: 5em;
+  }
+}
