@@ -4,8 +4,8 @@ if(!BUILDER===true) {
 }
 function SiteCfgLoad() {
 	$cfg = array(
-		'SiteName' => 'André Grötschel',
-		'SiteUrl' => 'andre.groetschel.eu',
+		'SiteName' => 'Page Builder',
+		'SiteUrl' => 'pagebuilder.projekt-matrix.de',
 		'StaticPath' => '../static/',
 		'BuildPagePath' => '../html/',
 		'SourcePath' => '../pages/',
