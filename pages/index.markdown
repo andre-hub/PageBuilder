@@ -7,3 +7,9 @@
 
 ###Sourcecode
 * [PageBuilder Sourcecode](https://github.com/andre-hub/PageBuilder "PageBuilder Sourcecode Repository") 
+
+###Why###
+[See here](/why "Why Page Builder")
+
+##About##
+This is a Project from [projekt-matrix.de](http://projekt-matrix.de/ "Projects Overview Website")

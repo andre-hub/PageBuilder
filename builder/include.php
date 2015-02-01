@@ -8,6 +8,7 @@ define('BUILDER', true);
 $RUNTIMER = microtime(true);
 
 using('builder');
+using('stringHelper');
 using('fileHelper');
 using('debug');
 using('parserHelper');

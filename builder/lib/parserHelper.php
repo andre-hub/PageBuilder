@@ -43,20 +43,6 @@ function StartpageFilter() {
 	return array('index','home','startseite');
 }
 
-function BeginWith($checkStr, $searchStr) {
-	if (substr($checkStr, 0, strlen($checkStr) - strlen($searchStr)) == $searchStr) {
-		return true;
-	}
-	return false;
-}
-
-function EndWith($checkStr, $searchStr, $endPos=1) {
-	if (substr($checkStr, strlen($checkStr)-$endPos,strlen($checkStr)) == $searchStr) {
-		return true;
-	}
-	return false;
-}
-
 function MakeUrl($siteUrl = '', $isHttps = false) {
 	if (!EndWith($siteUrl,'/') && !EndWith($siteUrl,'html',4)) {
 		$siteUrl .= '/';
@@ -88,6 +74,9 @@ function MakeNav($pagePart,$pages,$siteUrl) {
 	$filter = ParseFilter();
 	$startpageFilter = StartpageFilter();
 	if (in_array($pagePart, $filter)) {
+		return;
+	}
+	if (BeginWith($pagePart, FilenamePrefix())) {
 		return;
 	}
 	if (!in_array($pagePart, $startpageFilter)) {
@@ -126,17 +115,31 @@ function GetTxt($Source,$id=0) {
 	return $tmpTxt;
 }
 
+function FilenamePrefix() {
+	$filePrefix = '_';
+	return $filePrefix;
+}
+
+function AddFilenameExtension($filename) {
+	$extension = 'html';
+	return $filename . '.' . $extension;
+}
+
+function RemovePrefixFilename($filename) {
+	if (BeginWith($filename, FilenamePrefix())) {
+		$filename = substr($filename, strlen(FilenamePrefix()), strlen($filename));
+	}
+	return $filename;
+}
+
 function ParseFiles($pageTree, $pagePart='' ) {
-	if(IsDirSpecials($pagePart)) {
+	if ((IsDirSpecials($pagePart)) && (strlen(trim($parsedFileName)) < 5 )) {
 		return;
 	}
-	$parsedFileName = $pagePart.'.html';
+	$parsedFileName = RemovePrefixFilename($pagePart);
+	$pageTree['SiteTitle']=FirstUpperCase($parsedFileName);
 
-	if(strlen(trim($parsedFileName)) < 5 ){
-		return;
-	}
-
-	$pageTree['SiteTitle']=ucfirst(strtolower($pagePart));
+	$parsedFileName = AddFilenameExtension($parsedFileName);
 
 	$txtMarkdown = loadTplFile($pageTree['SourcePath'],$pagePart);
 	showLog($parsedFileName);
@@ -146,7 +149,7 @@ function ParseFiles($pageTree, $pagePart='' ) {
 	$activePlugins = GetAllowPlugins($pluginPath);
 	$pageTree = PluginsLoader($pluginPath,$activePlugins, $pageTree);
 
-	fileWrite($pageTree['BuildPagePath'],$parsedFileName,$pageTree['PageHtml']);
+	FileWrite($pageTree['BuildPagePath'],$parsedFileName,$pageTree['PageHtml']);
 }
 
 function GetAllowPlugins($path) {
