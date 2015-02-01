@@ -14,4 +14,20 @@ function SiteCfgLoad() {
 		);
 	return $cfg;
 }
+
+function PluginsCfgLoad() {
+	$loadedPlugins = array('Share');
+	return $loadedPlugins;
+}
+
+
+function PluginsSettings() {
+	$loadedPlugins = array('Share' => 
+			array(
+				'FlattrAccount' => 'andregroetschel',
+				'FlattrDescription' => 'Private Website from a developer, hobby analyst and hobby researcher.'
+				)
+		);
+	return $loadedPlugins;
+}
 ?>

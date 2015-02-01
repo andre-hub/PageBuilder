@@ -43,14 +43,14 @@ function StartpageFilter() {
 	return array('index','home','startseite');
 }
 
-function StrBeginHas($checkStr, $searchStr, $endPos=1) {
-	if (substr($checkStr, strlen($checkStr)-$endPos,strlen($checkStr)) == $searchStr) {
+function BeginWith($checkStr, $searchStr) {
+	if (substr($checkStr, 0, strlen($checkStr) - strlen($searchStr)) == $searchStr) {
 		return true;
 	}
 	return false;
 }
 
-function StrEndHas($checkStr, $searchStr, $endPos=1) {
+function EndWith($checkStr, $searchStr, $endPos=1) {
 	if (substr($checkStr, strlen($checkStr)-$endPos,strlen($checkStr)) == $searchStr) {
 		return true;
 	}
@@ -58,7 +58,7 @@ function StrEndHas($checkStr, $searchStr, $endPos=1) {
 }
 
 function MakeUrl($siteUrl = '', $isHttps = false) {
-	if (!StrEndHas($siteUrl,'/') && !StrEndHas($siteUrl,'html',4)) {
+	if (!EndWith($siteUrl,'/') && !EndWith($siteUrl,'html',4)) {
 		$siteUrl .= '/';
 	}
 	$siteUrl = AddHttp($siteUrl,$isHttps);
@@ -68,7 +68,7 @@ function MakeUrl($siteUrl = '', $isHttps = false) {
 function AddHttp($siteUrl,$isHttps) {
 	$http = 'http://';
 	$https = 'https://';
-	if (!StrBeginHas($siteUrl,$http,7) && !StrBeginHas($siteUrl,$https, 8)) {
+	if (!BeginWith($siteUrl,$http) && !BeginWith($siteUrl,$https)) {
 		$siteUrl = $isHttps === true ? $https . $siteUrl : $http . $siteUrl;
 	}
 	return $siteUrl;
@@ -104,7 +104,6 @@ function MergeHtml($html,$part,$txt='',$filter=true) {
 		return str_replace('{'.$part.'}','',$html);
 	}
 	if ($filter===true) {
-		//$tmpTxt = Markdown($txt);
 		$tmpTxt =  $parser->text($txt);
 	} else {
 		$tmpTxt = $txt;
@@ -142,7 +141,50 @@ function ParseFiles($pageTree, $pagePart='' ) {
 	$txtMarkdown = loadTplFile($pageTree['SourcePath'],$pagePart);
 	showLog($parsedFileName);
 	$pageTree = caseParser($pageTree,$txtMarkdown);
+
+	$pluginPath = 'plugins';
+	$activePlugins = GetAllowPlugins($pluginPath);
+	$pageTree = PluginsLoader($pluginPath,$activePlugins, $pageTree);
+
 	fileWrite($pageTree['BuildPagePath'],$parsedFileName,$pageTree['PageHtml']);
+}
+
+function GetAllowPlugins($path) {
+	$filePrefix = 'plugin';
+	$pluginFilenames = getPathEntry($path);
+	$toLoadPlugins = PluginsCfgLoad();
+	$activePlugins = array();
+	while ($pluginFilenames) {
+		$pluginFilename = array_pop($pluginFilenames);
+		if ($pluginFilename==null) {
+			return $activePlugins;
+		}
+		if (BeginWith($pluginFilename, $filePrefix)) {
+			$pluginName = str_replace($filePrefix, '', $pluginFilename);
+			$pluginName = str_replace('_', '', $pluginName);
+			$activePlugins[] = $pluginName;
+		}
+	}
+	return $activePlugins;
+}
+
+function PluginsLoader($path, $activePlugins, $pageTree) {
+	while ($activePlugins) {
+		$pluginName=array_pop($activePlugins);
+		if ($pluginName==null) {
+			return;
+		}
+		$pageTree['PageHtml'] = PluginStart($path,$pluginName, $pageTree['PageHtml']);
+	}
+	return $pageTree;
+}
+
+function PluginStart($path,$pluginName, $pageHtml) {
+	$prefix = 'plugin';
+	using($prefix . '_' . $pluginName,$path);
+	$pluginSettings = PluginsSettings();
+	$pageHtml = call_user_func($prefix . $pluginName,$pluginSettings,$pageHtml);
+	return $pageHtml;
 }
 
 function BuildPageDir($BuildPagePath){
