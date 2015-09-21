@@ -12,6 +12,7 @@ function CaseParser($pageTree,$txtMarkdown) {
 				break;
 
 			case 'TEXT':
+				$txtMarkdown = MergeHtml($txtMarkdown,'SITEURL',MakeUrl($pageTree['SiteUrl']),false);
 				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,$txtMarkdown);
 				break;
 
@@ -24,6 +25,11 @@ function CaseParser($pageTree,$txtMarkdown) {
 				break;
 			
 			case 'SITETITLE':
+				$startpageFilter = StartpageFilter();
+				if (in_array(strtolower($pageTree['SiteTitle']), $startpageFilter)) {
+					$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,'',false);
+					break;
+				}
 				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,$pageTree['SiteTitle'],false);
 				break;
 
