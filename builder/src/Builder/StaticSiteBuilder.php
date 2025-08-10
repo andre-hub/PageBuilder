@@ -13,8 +13,7 @@ function InitBuilder() {
 }
 
 function PageTree() {
-	using('cfg','.');
-	$pageTree = SiteCfgLoad();
+	$pageTree = SiteConfig::load();
 	$pageHtml = LoadTplFile($pageTree['StaticPath'].'/html/','index');
 	$pageTree['PageHtml'] = $pageHtml;
 	$pageTree['ParseTags'] = array('NAV','SITETITLE','TEXT','SITENAME','SITEURL');
@@ -23,19 +22,10 @@ function PageTree() {
 
 function MarkdownParserLoad($markdownParser,$vendorlib){
 	switch ($markdownParser) {
-		case 'Markdown':
-			using('Markdown', $vendorlib);
-			break;
-		case 'MarkdownExtra':
-			using('MarkdownExtra', $vendorlib);
-			break;
-		case 'ParsedownExtra':
-			using('Parsedown', $vendorlib);
-			using('ParsedownExtra', $vendorlib);
-			break;
-		case 'Parsedown':
+		case 'CommonMark':
 		default:
-			using('Parsedown', $vendorlib);
+			// League/CommonMark is loaded via Composer autoloader
+			// No additional loading required
 			break;
 	}
 }

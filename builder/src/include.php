@@ -11,15 +11,18 @@ define('BUILDER', true);
 $RUNTIMER = microtime(true);
 
 /* Load Composer autoloader - this handles all our modern PHP 8 classes */
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+/* Load SiteConfig from root */
+require_once __DIR__ . '/../SiteConfig.php';
 
 // Legacy function includes for backward compatibility
 // These will be refactored to classes in future iterations
 $legacyFiles = [
-    'src/Builder/StaticSiteBuilder.php',
-    'src/Builder/FileHelper.php', 
-    'src/Builder/Debug.php',
-    'src/Parser/MarkdownParser.php'
+    'Builder/StaticSiteBuilder.php',
+    'Builder/FileHelper.php', 
+    'Builder/Debug.php',
+    'Parser/MarkdownParser.php'
 ];
 
 foreach ($legacyFiles as $file) {

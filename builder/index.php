@@ -2,7 +2,7 @@
 // use "using('libFilename');" for other libfiles include
 define('DEBUG', true);
 
-require_once 'include.php';
+require_once 'src/include.php';
 
 // start builder
 BuilderMain();

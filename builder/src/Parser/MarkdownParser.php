@@ -3,7 +3,7 @@ function CaseParser($pageTree,$txtMarkdown) {
 	$parseTags = $pageTree['ParseTags'];
 	while ($parseTags) {
 		$part=array_pop($parseTags);
-		if ($part==null) {
+		if ($part === null) {
             continue;
 		}
 		switch ($part) {
@@ -12,12 +12,11 @@ function CaseParser($pageTree,$txtMarkdown) {
 				break;
 
 			case 'TEXT':
-				$txtMarkdown = MergeHtml($txtMarkdown,'SITEURL',MakeUrl($pageTree['SiteUrl']),false);
 				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,$txtMarkdown);
 				break;
 
 			case 'SITEURL':
-				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,MakeUrl($pageTree['SiteUrl']),false);
+				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,MakeUrl($pageTree['SiteUrl'],true),false);
 				break;
 
 			case 'SITENAME':
@@ -25,11 +24,6 @@ function CaseParser($pageTree,$txtMarkdown) {
 				break;
 			
 			case 'SITETITLE':
-				$startpageFilter = StartpageFilter();
-				if (in_array(strtolower($pageTree['SiteTitle']), $startpageFilter)) {
-					$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,'',false);
-					break;
-				}
 				$pageTree['PageHtml'] = MergeHtml($pageTree['PageHtml'],$part,$pageTree['SiteTitle'],false);
 				break;
 
@@ -47,6 +41,20 @@ function ParseFilter() {
 
 function StartpageFilter() {
 	return array('index','home','startseite');
+}
+
+function BeginWith($checkStr, $searchStr) {
+	if (substr($checkStr, 0, strlen($checkStr) - strlen($searchStr)) == $searchStr) {
+		return true;
+	}
+	return false;
+}
+
+function EndWith($checkStr, $searchStr, $endPos=1) {
+	if (substr($checkStr, strlen($checkStr)-$endPos,strlen($checkStr)) == $searchStr) {
+		return true;
+	}
+	return false;
 }
 
 function MakeUrl($siteUrl = '', $isHttps = false) {
@@ -82,24 +90,22 @@ function MakeNav($pagePart,$pages,$siteUrl) {
 	if (in_array($pagePart, $filter)) {
 		return;
 	}
-	if (BeginWith($pagePart, FilenamePrefix())) {
-		return;
-	}
 	if (!in_array($pagePart, $startpageFilter)) {
-		$url = MakeUrl($siteUrl).$pagePart;
+		$url = MakeUrl($siteUrl,true).$pagePart;
 	} else  {
-		$url = MakeUrl($siteUrl);
+		$url = MakeUrl($siteUrl,true);
 	}
 	return '<li><a href="'.$url.'">'.ucfirst(strtolower($pagePart)).'</a></li>';
 }
 
 function MergeHtml($html,$part,$txt='',$filter=true) {
-	$parser = new ParsedownExtra();
+	// Use League/CommonMark instead of ParsedownExtra
+	$parser = new \League\CommonMark\CommonMarkConverter();
 	if((strlen($html)==0) || (strlen($txt) == 0)) {
 		return str_replace('{'.$part.'}','',$html);
 	}
 	if ($filter===true) {
-		$tmpTxt =  $parser->text($txt);
+		$tmpTxt = $parser->convertToHtml($txt);
 	} else {
 		$tmpTxt = $txt;
 	}
@@ -121,31 +127,17 @@ function GetTxt($Source,$id=0) {
 	return $tmpTxt;
 }
 
-function FilenamePrefix() {
-	$filePrefix = '_';
-	return $filePrefix;
-}
-
-function AddFilenameExtension($filename) {
-	$extension = 'html';
-	return $filename . '.' . $extension;
-}
-
-function RemovePrefixFilename($filename) {
-	if (BeginWith($filename, FilenamePrefix())) {
-		$filename = substr($filename, strlen(FilenamePrefix()), strlen($filename));
-	}
-	return $filename;
-}
-
 function ParseFiles($pageTree, $pagePart='' ) {
-	if ((IsDirSpecials($pagePart)) && (strlen(trim($parsedFileName)) < 5 )) {
+	if(IsDirSpecials($pagePart)) {
 		return;
 	}
-	$parsedFileName = RemovePrefixFilename($pagePart);
-	$pageTree['SiteTitle']=FirstUpperCase($parsedFileName);
+	$parsedFileName = $pagePart.'.html';
 
-	$parsedFileName = AddFilenameExtension($parsedFileName);
+	if(strlen(trim($parsedFileName)) < 5 ){
+		return;
+	}
+
+	$pageTree['SiteTitle']=ucfirst(strtolower($pagePart));
 
 	$txtMarkdown = loadTplFile($pageTree['SourcePath'],$pagePart);
 	showLog($parsedFileName);
@@ -155,13 +147,13 @@ function ParseFiles($pageTree, $pagePart='' ) {
 	$activePlugins = GetAllowPlugins($pluginPath);
 	$pageTree = PluginsLoader($pluginPath,$activePlugins, $pageTree);
 
-	FileWrite($pageTree['BuildPagePath'],$parsedFileName,$pageTree['PageHtml']);
+	fileWrite($pageTree['BuildPagePath'],$parsedFileName,$pageTree['PageHtml']);
 }
 
 function GetAllowPlugins($path) {
 	$filePrefix = 'plugin';
 	$pluginFilenames = getPathEntry($path);
-	$toLoadPlugins = PluginsCfgLoad();
+	$toLoadPlugins = SiteConfig::loadPlugins();
 	$activePlugins = array();
 	while ($pluginFilenames) {
 		$pluginFilename = array_pop($pluginFilenames);
@@ -191,7 +183,7 @@ function PluginsLoader($path, $activePlugins, $pageTree) {
 function PluginStart($path,$pluginName, $pageHtml) {
 	$prefix = 'plugin';
 	using($prefix . '_' . $pluginName,$path);
-	$pluginSettings = PluginsSettings();
+	$pluginSettings = SiteConfig::getPluginSettings();
 	$pageHtml = call_user_func($prefix . $pluginName,$pluginSettings,$pageHtml);
 	return $pageHtml;
 }

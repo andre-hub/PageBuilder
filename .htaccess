@@ -1,0 +1,39 @@
+<IfModule mod_alias.c>
+RedirectMatch 404 /\.git/
+RedirectMatch 404 /\.svn/
+</IfModule>
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{HTTP_HOST !^OURDOMAIN\.com$
+
+###################
+
+# //Start Responsive Images 
+# direct image requests to temp
+RewriteCond %{QUERY_STRING} full=(.*)&?
+RewriteRule (.*)rwd-router/.*\.(jpe?g|png|gif|webp) $1%1 [L]
+# ignore trap for non-image requests, rewrite URL without trap segment
+RewriteRule (.*)rwd-router/(.*)$ $1$2
+# //End Responsive Images
+
+
+# RewriteCond %{[https|http]_user_agent} !^.*(2.0\ MMP|240x320|400X240|AvantGo|BlackBerry|Blazer|Cellphone|Danger|DoCoMo|Elaine/3.0|EudoraWeb|Googlebot-Mobile|hiptop|IEMobile|KYOCERA/WX310K|LG/U990|MIDP-2.|MMEF20|MOT-V|NetFront|Newt|Nintendo\ Wii|Nitro|Nokia|Opera\ Mini|Palm|PlayStation\ Portable|portalmmm|Proxinet|ProxiNet|SHARP-TQ-GX10|SHG-i900|Small|SonyEricsson|Symbian\ OS|SymbianOS|TS21i-10|UP.Browser|UP.Link|webOS|Windows\ CE|WinWAP|YahooSeeker/M1A1-R2D2|iPhone|iPod|Android|BlackBerry9530|LG-TU915\ Obigo|LGE\ VX|webOS|Nokia5800).*
+
+# RewriteCond %{[https|http]_user_agent} !^(w3c\ |w3c-|acs-|alav|alca|amoi|audi|avan|benq|bird|blac|blaz|brew|cell|cldc|cmd-|dang|doco|eric|hipt|htc_|inno|ipaq|ipod|jigs|kddi|keji|leno|lg-c|lg-d|lg-g|lge-|lg/u|maui|maxo|midp|mits|mmef|mobi|mot-|moto|mwbp|nec-|newt|noki|palm|pana|pant|phil|play|port|prox|qwap|sage|sams|sany|sch-|sec-|send|seri|sgh-|shar|sie-|siem|smal|smar|sony|sph-|symb|t-mo|teli|tim-|tosh|tsm-|upg1|upsi|vk-v|voda|wap-|wapa|wapi|wapp|wapr|webc|winw|winw|xda\ |xda-).*
+
+
+
+###################
+# Texte
+RewriteRule ^/?$ /html/startseite.html [QSA,L] # or /html/index.html or /html/home.html
+
+RewriteRule ^/?css/(.*)$ /static/css/$1 [QSA,L]
+RewriteRule ^/?img/(.*)$ /static/img/$1 [QSA,L]
+RewriteRule ^/?js/(.*)$ /static/js/$1 [QSA,L]
+RewriteRule ^/?fonts/(.*)$ /static/fonts/$1 [QSA,L]
+RewriteCond $1 !^(html|builder|static|version|ak-demo|favicon\.ico|sitemap\.xml|robots\.txt|(.*).asc|(.*).7z) [NC]
+RewriteRule ^(.*)$ /html/$1.html [L]

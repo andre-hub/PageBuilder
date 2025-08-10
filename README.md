@@ -1,13 +1,55 @@
-Page Builder
-==================
- * Page Builder convert with Markdown Parser text to html
- * need PHP5
- * use static html files
- * with responsive design
+# Page Builder - Static Site Builder
 
-##Licence
+Ein moderner, PHP 8-kompatibler Static Site Generator für beliebige Webseiten.
 
-Copyright (C) 2012-2015 André Grötschel
+## Features
+
+- PHP 8 kompatibel mit League/CommonMark
+- Composer-basierte Dependency-Verwaltung
+- PSR-4 Autoloading
+- Responsive Design
+- Plugin-System
+
+## Installation
+
+**Systemanforderungen:** PHP 8.0+, Composer, mbstring Extension
+
+```bash
+# Dependencies installieren
+cd ./builder
+composer install --no-dev --optimize-autoloader
+```
+
+## Verwendung
+
+```bash
+# Content bearbeiten
+# - Markdown-Dateien in pages/
+# - CSS-Styling in static/css/
+# - Bilder in static/img/
+
+# Website erstellen
+cd builder/
+php index.php
+```
+
+Die generierten HTML-Dateien befinden sich im `html/`-Verzeichnis.
+
+## Konfiguration
+
+Anpassungen in `builder/SiteConfig.php`:
+
+```php
+return [
+    'SiteName' => 'Your Website',
+    'SiteUrl' => 'yourwebsite.com',
+    // ...weitere Optionen
+];
+```
+
+## Lizenz
+
+Copyright (C) 2012-2025 André Grötschel
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
