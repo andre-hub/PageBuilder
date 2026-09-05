@@ -1,0 +1,120 @@
+/* theme-api: 1.0 */
+/* Theme "default" — Tannengrün, gemäß ADR 0001: das mitgelieferte
+ * Standard-Theme des PageBuilders ist grün, Blau bleibt der Website
+ * andre.groetschel.eu vorbehalten. Jeder Wert steht zuerst als
+ * Hex-Fallback, danach als oklch()-Deklaration; Browser ohne
+ * oklch()-Unterstützung behalten die Hex-Zeile, moderne Browser
+ * überschreiben sie nach der Regel „letzte gültige Deklaration gewinnt".
+ *
+ * Kontraste nach WCAG 2.2 AA gemessen, vollständige Tabelle in der
+ * README.md dieses Themes. Die kritischen Paarungen: weiße Schrift auf
+ * der Primärfarbe 6.34:1, gedämpfter Text auf der Karte 7.20:1,
+ * Überschrift auf der hellen Akzentfläche 8.59:1.
+ */
+
+:root {
+  --color-bg: #f6ede4;
+  --color-bg: oklch(95.1% 0.015 67.6);
+
+  --color-bg-elevated: #fefefe;
+  --color-bg-elevated: oklch(99.7% 0.000 89.9);
+
+  --color-fg: #332f2a;
+  --color-fg: oklch(30.8% 0.010 73.5);
+
+  --color-fg-muted: #5c564d;
+  --color-fg-muted: oklch(45.6% 0.016 78.1);
+
+  --color-primary: #2f6b46;
+  --color-primary: oklch(47.7% 0.087 154.3);
+
+  --color-primary-hover: #265939;
+  --color-primary-hover: oklch(41.9% 0.077 153.8);
+
+  --color-on-primary: #ffffff;
+  --color-on-primary: oklch(100% 0.000 89.9);
+
+  --color-accent: #d7e8dc;
+  --color-accent: oklch(91.5% 0.024 155.1);
+
+  --color-accent-hover: #c2dbca;
+  --color-accent-hover: oklch(86.8% 0.035 155.9);
+
+  --color-border: #c0bda5;
+  --color-border: oklch(79.4% 0.033 101.3);
+
+  --color-focus-ring: #1b4430;
+  --color-focus-ring: oklch(35.1% 0.058 159.9);
+
+  /* Zusatz-Token, kein Pflicht-Token des Theme-Vertrags: dunkles Navy für
+     den Schriftzug im Kopfbereich (auf hellem Blauschleier, keine Fläche
+     mit Fließtext). */
+  --color-heading: #1b4430;
+  --color-heading: oklch(35.1% 0.058 159.9);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+
+  --font-family-base: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-display: 'Dynalight', cursive, system-ui, sans-serif;
+  --font-size-base: clamp(1rem, 0.9rem + 0.35vw, 1.2rem);
+  --font-size-small: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+  --font-size-h1: clamp(1.5rem, 1.15rem + 1.2vw, 2.2rem);
+  --font-size-h2: clamp(1.2rem, 1.05rem + 0.7vw, 1.65rem);
+  --font-size-h3: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+  --font-size-h4: clamp(1rem, 0.96rem + 0.15vw, 1.1rem);
+  --font-size-header: clamp(2.1rem, 1.1rem + 3.6vw, 4.1rem);
+  --line-height-base: 1.55;
+
+  --shadow: 0 3px 3px rgb(0 0 0 / .35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1a231e;
+    --color-bg: oklch(24.6% 0.016 160.6);
+
+    --color-bg-elevated: #232e28;
+    --color-bg-elevated: oklch(28.9% 0.019 161.1);
+
+    --color-fg: #e2e6e0;
+    --color-fg: oklch(92.0% 0.009 134.9);
+
+    --color-fg-muted: #aeb5ac;
+    --color-fg-muted: oklch(76.5% 0.015 138.7);
+
+    --color-primary: #8fd0a8;
+    --color-primary: oklch(80.3% 0.087 156.8);
+
+    --color-primary-hover: #b0e0c2;
+    --color-primary-hover: oklch(86.5% 0.065 157.3);
+
+    --color-on-primary: #0d1a12;
+    --color-on-primary: oklch(20.3% 0.024 156.4);
+
+    --color-accent: #26382e;
+    --color-accent: oklch(32.2% 0.029 159.9);
+
+    --color-accent-hover: #314739;
+    --color-accent-hover: oklch(37.5% 0.036 156.3);
+
+    --color-border: #3a4a41;
+    --color-border: oklch(39.2% 0.025 160.3);
+
+    --color-focus-ring: #8fd0a8;
+    --color-focus-ring: oklch(80.3% 0.087 156.8);
+
+    --color-heading: #cfe8d8;
+    --color-heading: oklch(90.8% 0.034 157.6);
+
+    --shadow: 0 3px 6px rgb(0 0 0 / .6);
+  }
+}

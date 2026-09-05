@@ -1,0 +1,16 @@
+# Beispiel einer Deploy-Konfiguration.
+#
+# Kopieren nach deploy.conf und mit eigenen Werten füllen. Die echte
+# deploy.conf ist bewusst von der Versionierung ausgenommen, damit
+# Serveradressen und Benutzernamen nicht im öffentlichen Projekt landen.
+
+# SSH-Benutzer und Host des Zielservers
+UBERSPACE_USER=beispiel
+UBERSPACE_HOST=beispiel.uberspace.de
+
+# Optionaler Pfad zu einem eigenen SSH-Schlüssel; leer = ~/.ssh/config
+DEPLOY_KEY_PATH=
+
+# Zielverzeichnis relativ zum Heimatverzeichnis des Benutzers.
+# Es ist zugleich der DocumentRoot und enthält das gesamte Projekt.
+REMOTE_HTML_PATH=www/beispiel.de/

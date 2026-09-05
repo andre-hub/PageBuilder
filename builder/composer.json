@@ -2,10 +2,10 @@
     "name": "pagebuilder/static-site-builder",
     "description": "PHP 8 static site generator",
     "type": "project",
-    "license": "GPL-3.0",
+    "license": "GPL-3.0-or-later",
     "require": {
-        "php": "^8.0",
-        "league/commonmark": "^2.4",
+        "php": "^8.4",
+        "league/commonmark": "^2.7",
         "ext-mbstring": "*"
     },
     "require-dev": {
@@ -13,14 +13,15 @@
     },
     "autoload": {
         "psr-4": {
-            "PageBuilder\\": "src/",
-            "PageBuilder\\Builder\\": "src/Builder/",
-            "PageBuilder\\Parser\\": "src/Parser/"
+            "PageBuilder\\": "src/"
         }
     },
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.4"
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

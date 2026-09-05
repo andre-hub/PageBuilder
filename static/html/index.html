@@ -1,76 +1,68 @@
-<!doctype html>
-<html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!DOCTYPE html>
+<html lang="{LANG}" data-theme="{THEME_NAME}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{SITETITLE} | {SITENAME}</title>
-  <meta http-equiv="cleartype" content="on" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-  <link rel="stylesheet" href="{SITEURL}css/normalize.min.css" />
-  <link rel="stylesheet" href="{SITEURL}css/main.css" />
-  <link rel="stylesheet" href="{SITEURL}css/media.css" />
-  <link rel="apple-touch-icon" href="{SITEURL}img/logo-sml.png" />
-  <link rel="apple-touch-icon-precomposed" href="{SITEURL}img/logo-sml.png" />
-  <!--[if lt IE 9]>
-  <script type="text/javascript" src="{SITEURL}js/html5shiv.js"></script>
-  <script type="text/javascript" src="{SITEURL}js/respond.min.js"></script>
-   <![endif]-->
-  <noscript><link rel="stylesheet" href="{SITEURL}css/noscript.css" /></noscript>
+  <link rel="stylesheet" href="{SITEURL}css/normalize.css">
+  <link rel="stylesheet" href="{SITEURL}css/base.css">
+  <link rel="stylesheet" href="{SITEURL}themes/{THEME_NAME}/tokens.css">
+  <link rel="stylesheet" href="{SITEURL}themes/{THEME_NAME}/theme.css">
 </head>
 <body>
-<header>
-  <div id="header">
-    <div class="inner">
-     <h2 id="headbox"><span class="headleft">Page</span><span class="headright">Builder</span></h2>
-     <img src="{SITEURL}img/logo-sml.png?full=img/logo.de-lrg.png" alt="" id="logo">
-    </div>
+{SKIPLINK}
+<header id="header">
+  <div class="inner">
+    <h2 id="headbox">
+      <span class="headleft">Page</span>
+      <img id="logo" src="{SITEURL}img/logo-sml.png" srcset="{SITEURL}img/logo-sml.png 113w, {SITEURL}img/logo.de-lrg.png 227w" sizes="(min-width: 40em) 9rem, 3.5rem" alt="{SITENAME}">
+      <span class="headright">Builder</span>
+    </h2>
   </div>
 </header>
 
-  <div id="pageBody">
+<div id="pageBody">
+  <nav id="nav" aria-label="Hauptnavigation">
+    <ul>
+      {NAV}
+    </ul>
+  </nav>
 
-<nav>
-    <div id="nav">
-      <ul>
-        {NAV}
-      </ul>
-    </div>
-</nav>
-
-<article>
-    <div id="content">
+  <main id="main-content" tabindex="-1">
+    <article id="content">
       <div class="inner">
-
         <h1>{SITETITLE}</h1>
         {TEXT}
       </div>
-    </div>
-</article> 
+    </article>
+  </main>
 
- <section id="sidebar">
-      <div class="inner">
-        <h2>Sidebar</h2>
-        <h2>Contact</h2>
-      		<ul class="social">
-      		  <li class="email"><a href="mailto:USERACCOUNT $ a t $ example.com">@Mail</a></li>
-      		  <li class="jabber"><a href="xmpp://USERACCOUNT" >USERACCOUNT</a></li>
-      		</ul>
-      </div>
+  <aside id="sidebar">
+    <div class="inner">
+      <h2>Über das Projekt</h2>
+      <p>
+        PageBuilder ist ein schlanker, selbstgebauter PHP-Static-Site-Generator
+        ohne Frameworks und ohne JavaScript-Bundler. Diese Seite ist zugleich
+        seine Referenz- und Demo-Site.
+      </p>
+      <h2>Quellcode</h2>
+      <ul>
+        <li><a href="https://github.com/andre-hub/PageBuilder">Quellcode-Verzeichnis auf GitHub</a></li>
+      </ul>
     </div>
-</section>
+  </aside>
+</div>
 
 <footer id="footer">
-      <div class="inner">
-        <div class="left">&copy; 2012-2025</div>
-        <div class="right"><a href="#">Go Top</a></div>
-        <div class="center"><a href="http://pagebuilder.projekt-matrix.de/">Page Builder</a> - <a href="{SITEURL}agb">AGB</a> - <a href="{SITEURL}imprint">Imprint</a></div>
-    </div>
+  <div class="inner">
+    <p>&copy; 2012&ndash;2026 {SITENAME}</p>
+    <nav aria-label="Rechtliches">
+      <ul>
+        <li><a href="{SITEURL}agb">AGB</a></li>
+        <li><a href="{SITEURL}imprint">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
 </footer>
-
-<div id="mixpanel" style="visibility: hidden; "></div></body>
-<script type="text/javascript" src="{SITEURL}js/responsiveimgs.min.js"></script>
-<link rel="stylesheet" type="text/css" href="data:text/css">
+</body>
 </html>

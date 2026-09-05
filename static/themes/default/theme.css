@@ -1,0 +1,140 @@
+/* Theme "default" — Komponenten-Styles (baut auf tokens.css + base.css auf) */
+
+/*
+ * Inter, Version 4.1 — © The Inter Project Authors, SIL Open Font License
+ * 1.1. Quelle: https://github.com/rsms/inter. Selbst gehostet, siehe
+ * static/fonts/LICENSE-Inter.txt.
+ */
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/Inter-latin-var.woff2') format('woff2-variations'),
+       url('../../fonts/Inter-latin-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/Inter-latin-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/*
+ * Dynalight — Google Fonts, SIL Open Font License. Selbst gehostet in zwei
+ * Unicode-Bereichs-Dateien, wie von Google Fonts ausgeliefert; nur der
+ * Schnitt Regular 400 liegt vor, ein fett wirkender Schriftzug entsteht per
+ * synthetischem font-weight: 700 (siehe #headbox unten).
+ */
+@font-face {
+  font-family: 'Dynalight';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Dynalight'), local('Dynalight-Regular'), url('../../fonts/dynalight_part1.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Dynalight';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Dynalight'), local('Dynalight-Regular'), url('../../fonts/dynalight_part2.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* ── Kopfbereich: Foto mit hellblauem Schleier, Schriftzug in zwei Hälften ── */
+#header .inner {
+  background-image: url('../../img/header-background-sml.jpg');
+}
+
+@media (min-width: 40em) {
+  #header .inner {
+    background-image: url('../../img/header-background-lrg.jpg');
+  }
+}
+
+#header .inner::before {
+  background-color: var(--color-accent);
+}
+
+#headbox {
+  font-family: var(--font-family-display);
+  color: var(--color-heading);
+  /* Dynalight liegt nur in Schnitt 400 vor; 700 laesst den Browser den
+     fetten Schnitt synthetisieren, gewollt fuer die Schreibschrift. */
+  font-weight: 700;
+}
+
+/* ── Navigation, Seitenleiste, Fusszeile: kräftiges Blau, weiße Schrift ── */
+#nav ul,
+#sidebar .inner,
+#footer {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+#nav a {
+  color: var(--color-on-primary);
+}
+
+#nav a:hover,
+#nav a:focus-visible {
+  background-color: var(--color-primary-hover);
+  color: var(--color-on-primary);
+}
+
+#nav a[aria-current="page"] {
+  background-color: var(--color-primary-hover);
+  color: var(--color-on-primary);
+  font-weight: 700;
+}
+
+#nav li,
+#sidebar .inner li {
+  border-color: rgb(255 255 255 / .35);
+}
+
+#sidebar h2 {
+  color: var(--color-on-primary);
+}
+
+#sidebar a,
+#footer a {
+  color: var(--color-on-primary);
+  text-decoration-color: rgb(255 255 255 / .6);
+}
+
+#sidebar a:hover,
+#footer a:hover {
+  color: var(--color-on-primary);
+  text-decoration-color: var(--color-on-primary);
+}
+
+/* ── Inhaltskarte: dezente blaue Akzentlinie ── */
+#content .inner {
+  border-top: 3px solid var(--color-primary);
+}
+
+#content h1 {
+  color: var(--color-primary-hover);
+}
+
+#content a {
+  color: var(--color-primary);
+}
+
+#content a:hover {
+  color: var(--color-primary-hover);
+}
+
+#content blockquote {
+  border-left-color: var(--color-primary);
+}
+
+#content .toc-box {
+  border: 1px solid var(--color-accent);
+}

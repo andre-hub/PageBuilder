@@ -1,6 +1,5 @@
 # Composer dependencies
 /builder/vendor/
-/builder/composer.lock
 
 # Build output (generated HTML files)
 /html/*.html
@@ -45,3 +44,9 @@ Thumbs.db
 # Test coverage
 coverage/
 .coverage
+
+# Echte Deploy-Konfiguration bleibt lokal; versioniert ist nur das Beispiel
+/deploy/uberspace/deploy.conf
+
+# Erzeugte Sitemap
+/sitemap.xml

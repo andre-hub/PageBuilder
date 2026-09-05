@@ -1,65 +1,21 @@
-# Page Builder - Static Site Builder
+# PageBuilder
 
-Ein moderner, PHP 8-kompatibler Static Site Generator für beliebige Webseiten.
+PHP-Static-Site-Generator für Markdown-Seiten mit Themes, responsiven Bildreferenzen und automatischer Sitemap. Keine Datenbank und kein JavaScript-Bundler.
 
-## Features
+## Bauen
 
-- PHP 8 kompatibel mit League/CommonMark
-- Composer-basierte Dependency-Verwaltung
-- PSR-4 Autoloading
-- Responsive Design
-- Plugin-System
+Voraussetzungen: PHP 8.4+, `mbstring` und Composer.
 
-## Installation
-
-**Systemanforderungen:** PHP 8.0+, Composer, mbstring Extension
-
-```bash
-# Dependencies installieren
-cd ./builder
-composer install --no-dev --optimize-autoloader
+```sh
+composer install --working-dir=builder --no-dev
+php builder/index.php
 ```
 
-## Verwendung
+Erzeugt `html/` und `sitemap.xml`. Inhalte liegen in `pages/`, Einstellungen in `builder/SiteConfig.php`. Eine separate Website baut derselbe Core mit `php builder/index.php --site /pfad/zur/website`.
 
-```bash
-# Content bearbeiten
-# - Markdown-Dateien in pages/
-# - CSS-Styling in static/css/
-# - Bilder in static/img/
-
-# Website erstellen
-cd builder/
-php index.php
-```
-
-Die generierten HTML-Dateien befinden sich im `html/`-Verzeichnis.
-
-## Konfiguration
-
-Anpassungen in `builder/SiteConfig.php`:
-
-```php
-return [
-    'SiteName' => 'Your Website',
-    'SiteUrl' => 'yourwebsite.com',
-    // ...weitere Optionen
-];
-```
+[Demo](https://pagebuilder.projekt-matrix.de/) · [Funktionen](https://pagebuilder.projekt-matrix.de/funktionen) · [GitHub Issues](https://github.com/andre-hub/PageBuilder/issues)
 
 ## Lizenz
 
-Copyright (C) 2012-2025 André Grötschel
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+Copyright (C) 2012–2026 André Grötschel. GNU GPL v3 oder später.  
+Siehe <https://www.gnu.org/licenses/>.
